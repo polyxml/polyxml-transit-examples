@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	siri "github.com/nth-bailey/polyxml-transit-examples/generated/go"
+	siri "github.com/polyxml/polyxml-transit-examples/generated/go"
 )
 
 type GtfsFeedMessage struct {

@@ -1,11 +1,11 @@
 # 🚍 PolyXML Transit Showcase: Google GTFS-Realtime ↔ European CEN SIRI v2.0 & NeTEx
 
-[![CI](https://github.com/nth-bailey/polyxml-transit-examples/actions/workflows/ci.yml/badge.svg)](https://github.com/nth-bailey/polyxml-transit-examples/actions/workflows/ci.yml)
-[![PolyXML Compiler](https://img.shields.io/badge/PolyXML-v0.19.2-blue.svg)](https://github.com/nth-bailey/PolyXML)
+[![CI](https://github.com/polyxml/polyxml-transit-examples/actions/workflows/ci.yml/badge.svg)](https://github.com/polyxml/polyxml-transit-examples/actions/workflows/ci.yml)
+[![PolyXML Compiler](https://img.shields.io/badge/PolyXML-v0.19.2-blue.svg)](https://github.com/polyxml/PolyXML)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Languages](https://img.shields.io/badge/Languages-Rust%20%7C%20Python%20%7C%20Go%20%7C%20C%2B%2B%20%7C%20Java%20%7C%20TypeScript%20%7C%20C%23-orange.svg)](#cross-language-matrix)
 
-Production-ready polyglot transit data bridge demonstrating **[PolyXML](https://github.com/nth-bailey/PolyXML)** compiling European **CEN SIRI v2.0 (EN 15531)** & **NeTEx (CEN/TS 16614)** XML schemas and bridging live **Google GTFS-Realtime (Protobuf/JSON)** telemetry across all **7 supported programming languages**: **Rust, Python, Go, C++20, Java 21+, TypeScript 5+, and C# 12 / .NET 8**.
+Production-ready polyglot transit data bridge demonstrating **[PolyXML](https://github.com/polyxml/PolyXML)** compiling European **CEN SIRI v2.0 (EN 15531)** & **NeTEx (CEN/TS 16614)** XML schemas and bridging live **Google GTFS-Realtime (Protobuf/JSON)** telemetry across all **7 supported programming languages**: **Rust, Python, Go, C++20, Java 21+, TypeScript 5+, and C# 12 / .NET 8**.
 
 ---
 
@@ -293,7 +293,7 @@ PolyXML generated models do not require converting XML to an intermediate dictio
 Execute the automated test suite verifying 100% green execution across all languages:
 
 ```bash
-git clone https://github.com/nth-bailey/polyxml-transit-examples.git
+git clone https://github.com/polyxml/polyxml-transit-examples.git
 cd polyxml-transit-examples
 
 # Execute the complete polyglot test suite & transcoder demo
