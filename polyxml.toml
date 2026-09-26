@@ -34,12 +34,13 @@ package = "com.transit.siri"
 [[generate]]
 target = "typescript"
 output = "typescript"
-zod = true
+backend = "zod"
 
 [[generate]]
 target = "csharp"
 output = "csharp"
 namespace = "Transit.Siri"
-source_gen = true
+backend = "source-gen"
+
 
 

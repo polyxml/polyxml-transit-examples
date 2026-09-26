@@ -1,5 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
+import { Readable } from "node:stream";
+import { createPolyXml } from "@polyxml/wasm";
 import {
   OccupancyEnum,
   ProgressRateEnum,
@@ -129,7 +131,7 @@ function serializeXml(siri: SiriType): string {
   return xml;
 }
 
-function main() {
+async function main() {
   console.log("================================================================================");
   console.log("🚍 PolyXML: Google GTFS-RT ↔ European CEN SIRI Transit Bridge (TypeScript 5+)");
   console.log("================================================================================");
@@ -220,7 +222,28 @@ function main() {
   console.log(`    Occupancy: ${mvj.occupancy}`);
   console.log("    Runtime Zod Schema Validation: PASS");
 
-  console.log("\n✅ TypeScript 5+ GTFS-RT ↔ CEN SIRI Transit Bridge executed successfully!");
+  // 4. WebAssembly Engine (@polyxml/wasm): In-Browser / Node Wasm Transcoding & Streaming
+  const t_start_wasm = performance.now();
+  const polyxmlWasm = await createPolyXml();
+  const wasmParsed = polyxmlWasm.xmlToJson(xml);
+  const wasmXml = polyxmlWasm.jsonToXml(wasmParsed);
+  const t_end_wasm = performance.now();
+  const wasmUs = (t_end_wasm - t_start_wasm) * 1000.0;
+
+  console.log(`\n[4] WebAssembly Engine (@polyxml/wasm) (latency: ${wasmUs.toFixed(2)}µs):`);
+  console.log(`    Wasm Converted JSON Root: ${Object.keys(wasmParsed as object).join(", ")}`);
+  console.log(`    Wasm XML Roundtrip Size:  ${wasmXml.length} bytes`);
+
+  // Streaming record parsing demonstration: simulate streaming incoming transit vehicle activity XML records
+  const sampleStreamXml = `<Siri xmlns="http://www.siri.org.uk/siri"><ServiceDelivery><VehicleActivity><MonitoredVehicleJourney><LineRef>${mvj.lineRef}</LineRef><VehicleRef>${mvj.vehicleRef}</VehicleRef></MonitoredVehicleJourney></VehicleActivity></ServiceDelivery></Siri>`;
+  const webStream = Readable.toWeb(Readable.from([sampleStreamXml]));
+  let streamedRecordsCount = 0;
+  for await (const record of polyxmlWasm.parseStream(webStream)) {
+    streamedRecordsCount++;
+    console.log(`    Wasm Stream Record #${streamedRecordsCount}: ${Object.keys(record as object).join(", ")}`);
+  }
+
+  console.log("\n✅ TypeScript 5+ & WebAssembly GTFS-RT ↔ CEN SIRI Transit Bridge executed successfully!");
 }
 
 main();

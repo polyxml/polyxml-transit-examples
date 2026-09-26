@@ -6,6 +6,7 @@
     unused_imports,
     unused_mut,
     unused_variables,
+    unused_assignments,
     non_camel_case_types,
     non_snake_case
 )]
@@ -49,7 +50,25 @@ fn read_element_text<'a>(reader: &mut Reader<&'a [u8]>, tag_name: &str) -> Resul
                     },
                     Cow::Owned(s) => Cow::Owned(quick_xml::escape::unescape(&s)?.into_owned()),
                 };
-                text = raw;
+                if text.is_empty() {
+                    text = raw;
+                } else {
+                    text.to_mut().push_str(&raw);
+                }
+            }
+            Event::CData(c) => {
+                text.to_mut().push_str(c.as_ref());
+            }
+            Event::GeneralRef(r) => {
+                if r.is_char_ref() {
+                    if let Some(ch) = r.resolve_char_ref()? {
+                        text.to_mut().push(ch);
+                    }
+                } else if let Some(val) = quick_xml::escape::resolve_xml_entity(r.as_ref()) {
+                    text.to_mut().push_str(val);
+                } else {
+                    text.to_mut().push_str(r.as_ref());
+                }
             }
             Event::End(e) if e.local_name().as_ref() == tag_name => break,
             Event::Eof => break,

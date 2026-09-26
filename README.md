@@ -1,11 +1,20 @@
-# 🚍 PolyXML Transit Showcase: Google GTFS-Realtime ↔ European CEN SIRI v2.0 & NeTEx
+<h1 align="center">
+  <img src="https://raw.githubusercontent.com/polyxml/PolyXML/main/docs/assets/brand/logo_polyxml_banner.png" alt="PolyXML" width="800">
+</h1>
 
-[![CI](https://github.com/polyxml/polyxml-transit-examples/actions/workflows/ci.yml/badge.svg)](https://github.com/polyxml/polyxml-transit-examples/actions/workflows/ci.yml)
-[![PolyXML Compiler](https://img.shields.io/badge/PolyXML-v0.19.2-blue.svg)](https://github.com/polyxml/PolyXML)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Languages](https://img.shields.io/badge/Languages-Rust%20%7C%20Python%20%7C%20Go%20%7C%20C%2B%2B%20%7C%20Java%20%7C%20TypeScript%20%7C%20C%23-orange.svg)](#cross-language-matrix)
+<p align="center">
+  <strong>🚍 PolyXML Transit Showcase: Google GTFS-Realtime ↔ European CEN SIRI v2.0 & NeTEx</strong><br>
+  <em>Rust • Python • Go • C++20 • Java 22+ • TypeScript 5+ / WebAssembly • C# 12</em>
+</p>
 
-Production-ready polyglot transit data bridge demonstrating **[PolyXML](https://github.com/polyxml/PolyXML)** compiling European **CEN SIRI v2.0 (EN 15531)** & **NeTEx (CEN/TS 16614)** XML schemas and bridging live **Google GTFS-Realtime (Protobuf/JSON)** telemetry across all **7 supported programming languages**: **Rust, Python, Go, C++20, Java 22+, TypeScript 5+, and C# 12 / .NET 8**.
+<p align="center">
+  <a href="https://github.com/polyxml/polyxml-transit-examples/actions/workflows/ci.yml"><img src="https://github.com/polyxml/polyxml-transit-examples/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/polyxml/PolyXML"><img src="https://img.shields.io/badge/PolyXML-v0.23.3-blue.svg" alt="PolyXML Compiler"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License: MIT"></a>
+  <a href="#cross-language-matrix"><img src="https://img.shields.io/badge/Languages-Rust%20%7C%20Python%20%7C%20Go%20%7C%20C%2B%2B%20%7C%20Java%20%7C%20TypeScript%2FWasm%20%7C%20C%23-orange.svg" alt="Languages"></a>
+</p>
+
+Production-ready polyglot transit data bridge demonstrating **[PolyXML](https://github.com/polyxml/PolyXML)** compiling European **CEN SIRI v2.0 (EN 15531)** & **NeTEx (CEN/TS 16614)** XML schemas and bridging live **Google GTFS-Realtime (Protobuf/JSON)** telemetry across all **7 supported programming languages**: **Rust, Python, Go, C++20, Java 22+, TypeScript 5+ / WebAssembly (`@polyxml/wasm`), and C# 12 / .NET 8**.
 
 ---
 
@@ -65,7 +74,7 @@ All 7 implementations were benchmarked ingesting live Amsterdam GVB Tram 4 telem
 | **🦀 Rust** | Borrowed zero-copy slices (`Cow<'a, str>`) & quick-xml codecs | **79.4 μs** | **107.3 μs** | **~79 μs** *(AOT native)* | Native facet checks |
 | **⚡ C++20** | Header-only value types, `XmlModel` concepts & `operator==` | **106.4 μs** | **6.2 μs** | **~106 μs** *(AOT native)* | Static concept verification |
 | **🐹 Go** | Dual `xml:"..."` and `json:"..."` struct tags + `XMLName` | **105.2 μs** | **174.9 μs** | **~105 μs** *(AOT native)* | `.Validate()` methods |
-| **🌐 TypeScript 5+** | Native ES interfaces + runtime Zod object schemas | **191.4 μs** | **25.1 μs** | **~2.1 μs** *(V8 TurboFan)* | Zod schema parse (`SiriTypeSchema`) |
+| **🌐 TypeScript 5+ & Wasm** | Native ES interfaces + runtime Zod schemas + `@polyxml/wasm` | **191.4 μs** | **25.1 μs** | **~2.1 μs** *(V8 TurboFan)* | Zod schema parse & streaming Wasm |
 | **☕ Java 22+** | Immutable `record`s, `java.time.Instant`, sealed interfaces | **3.0 ms** *(cold)* | **583.7 μs** | **~8.3 μs** *(HotSpot C2 JIT)* | Immutability & nullability checks |
 | **🐍 Python** | `@dataclass(slots=True)` + PolyXML C-Engine bindings | **3.7 ms** | **439.7 μs** | **~3.7 ms** *(Interpreted)* | Inherent dataclass validation |
 | **🔷 C# 12 / .NET 8** | Primary constructor records, `XmlSerializer` + `System.Text.Json` | **57.7 ms** *(cold)* | **39.4 ms** | **~28.5 μs** *(RyuJIT)* | `IValidatableObject` |
