@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Languages](https://img.shields.io/badge/Languages-Rust%20%7C%20Python%20%7C%20Go%20%7C%20C%2B%2B%20%7C%20Java%20%7C%20TypeScript%20%7C%20C%23-orange.svg)](#cross-language-matrix)
 
-Production-ready polyglot transit data bridge demonstrating **[PolyXML](https://github.com/polyxml/PolyXML)** compiling European **CEN SIRI v2.0 (EN 15531)** & **NeTEx (CEN/TS 16614)** XML schemas and bridging live **Google GTFS-Realtime (Protobuf/JSON)** telemetry across all **7 supported programming languages**: **Rust, Python, Go, C++20, Java 21+, TypeScript 5+, and C# 12 / .NET 8**.
+Production-ready polyglot transit data bridge demonstrating **[PolyXML](https://github.com/polyxml/PolyXML)** compiling European **CEN SIRI v2.0 (EN 15531)** & **NeTEx (CEN/TS 16614)** XML schemas and bridging live **Google GTFS-Realtime (Protobuf/JSON)** telemetry across all **7 supported programming languages**: **Rust, Python, Go, C++20, Java 22+, TypeScript 5+, and C# 12 / .NET 8**.
 
 ---
 
@@ -27,7 +27,7 @@ Modern public transportation and urban mobility systems are globally divided int
 Historically, bridging GTFS-RT and CEN SIRI required maintaining separate hand-crafted XML parsers and JSON encoders in every programming language. **PolyXML** completely eliminates this impedance mismatch by providing:
 - **Unified Typed Data Models**: Single schema source (`siri_core.xsd`) compiled into idiomatic, native types in 7 languages.
 - **Inherent Dual XML & JSON Serialization**: The same memory structure serializes to both validated CEN SIRI XML and clean JSON with zero boilerplate.
-- **Sub-Millisecond Polyglot Performance**: Zero-copy parsing in Rust, header-only value types in C++20, records in Java 21 & C#, and C-speed transcoding in Python and TypeScript.
+- **Sub-Millisecond Polyglot Performance**: Zero-copy parsing in Rust, header-only value types in C++20, records in Java 22 & C#, and C-speed transcoding in Python and TypeScript.
 
 ---
 
@@ -66,16 +66,16 @@ All 7 implementations were benchmarked ingesting live Amsterdam GVB Tram 4 telem
 | **⚡ C++20** | Header-only value types, `XmlModel` concepts & `operator==` | **106.4 μs** | **6.2 μs** | **~106 μs** *(AOT native)* | Static concept verification |
 | **🐹 Go** | Dual `xml:"..."` and `json:"..."` struct tags + `XMLName` | **105.2 μs** | **174.9 μs** | **~105 μs** *(AOT native)* | `.Validate()` methods |
 | **🌐 TypeScript 5+** | Native ES interfaces + runtime Zod object schemas | **191.4 μs** | **25.1 μs** | **~2.1 μs** *(V8 TurboFan)* | Zod schema parse (`SiriTypeSchema`) |
-| **☕ Java 21+** | Immutable `record`s, `java.time.Instant`, sealed interfaces | **3.0 ms** *(cold)* | **583.7 μs** | **~8.3 μs** *(HotSpot C2 JIT)* | Immutability & nullability checks |
+| **☕ Java 22+** | Immutable `record`s, `java.time.Instant`, sealed interfaces | **3.0 ms** *(cold)* | **583.7 μs** | **~8.3 μs** *(HotSpot C2 JIT)* | Immutability & nullability checks |
 | **🐍 Python** | `@dataclass(slots=True)` + PolyXML C-Engine bindings | **3.7 ms** | **439.7 μs** | **~3.7 ms** *(Interpreted)* | Inherent dataclass validation |
 | **🔷 C# 12 / .NET 8** | Primary constructor records, `XmlSerializer` + `System.Text.Json` | **57.7 ms** *(cold)* | **39.4 ms** | **~28.5 μs** *(RyuJIT)* | `IValidatableObject` |
 
-*Benchmarked on Linux x86_64 across identical Amsterdam GVB Tram 4 telemetry payloads.*
+*Benchmarked on Linux x86_64 across identical Amsterdam GVB Tram 4 telemetry payloads. The Java figures were measured on JDK 21 before PolyXML raised its supported minimum to Java 22; rerun them on Java 22+ for current comparisons.*
 
 > [!NOTE]
 > **Understanding Cold Single-Shot vs. Steady-State (JIT Warmed) Latency:**
 > - **AOT Compiled Languages (Rust, C++, Go)**: Compiled Ahead-of-Time directly to native machine code. They have **zero classloading or JIT warm-up overhead**; execution immediately runs at full production speed on the very first instruction.
-> - **Managed JIT Runtimes (Java 21+, C# 12 / .NET 8)**: Single-shot cold measurements include one-time JVM dynamic class loading, bytecode verification, and .NET `XmlSerializer` code generation (~3–57 ms). In continuous production environments (e.g., real-time transit dispatchers, broker microservices, Kafka/streaming consumers) after HotSpot C2 / RyuJIT compilation, Java executes in **~8.3 μs** and C# in **~28.5 μs**.
+> - **Managed JIT Runtimes (Java 22+, C# 12 / .NET 8)**: Single-shot cold measurements include one-time JVM dynamic class loading, bytecode verification, and .NET `XmlSerializer` code generation (~3–57 ms). In continuous production environments (e.g., real-time transit dispatchers, broker microservices, Kafka/streaming consumers) after HotSpot C2 / RyuJIT compilation, Java executes in **~8.3 μs** and C# in **~28.5 μs**.
 
 ---
 
@@ -124,7 +124,7 @@ polyxml generate schemas/transit/siri_core.xsd \
   --out generated/cpp
 ```
 
-#### 5. ☕ Java 21+ (Records & Sealed Interfaces)
+#### 5. ☕ Java 22+ (Records & Sealed Interfaces)
 ```bash
 polyxml generate schemas/transit/siri_core.xsd \
   --lang java \
@@ -285,7 +285,7 @@ PolyXML generated models do not require converting XML to an intermediate dictio
 - **Go** 1.22+
 - **Python** 3.11+
 - **GCC / Clang** (C++20 support) & **CMake** 3.20+
-- **JDK 21+** & **Maven** 3.9+
+- **JDK 22+** & **Maven** 3.9+
 - **Node.js** 22+ (for `--experimental-strip-types`)
 - **.NET 8 SDK**
 
@@ -316,7 +316,7 @@ cmake -B examples/cpp/build examples/cpp -DCMAKE_BUILD_TYPE=Release
 cmake --build examples/cpp/build
 ./examples/cpp/build/gtfs_siri_bridge
 
-# ☕ Java 21+
+# ☕ Java 22+
 mvn -f examples/java/pom.xml compile exec:java -q
 
 # 🌐 TypeScript 5+
@@ -357,7 +357,7 @@ polyxml-transit-examples/
 │   ├── python/                          # Python dataclass + PolyXML C-engine adapter
 │   ├── go/                              # Go dual XML/JSON struct tags
 │   ├── cpp/                             # C++20 XmlModel value types
-│   ├── java/                            # Java 21 records & Instant timestamps
+│   ├── java/                            # Java 22 records & Instant timestamps
 │   ├── typescript/                      # TypeScript 5 + runtime Zod schemas
 │   └── csharp/                          # C# 12 / .NET 8 primary constructor records
 ├── scripts/
@@ -375,4 +375,3 @@ Distributed under the MIT License. See [`LICENSE`](LICENSE) for full terms.
 
 For third-party standards, specifications, open transit licenses (Apache 2.0 for GTFS Realtime), and trademark notices, see [`NOTICE`](NOTICE).
 All schemas are sourced from open international standards bodies ([Google GTFS-Realtime](https://gtfs.org/realtime/) and [CEN SIRI](http://www.siri.org.uk/)).
-

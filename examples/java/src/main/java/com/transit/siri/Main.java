@@ -162,7 +162,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         System.out.println("================================================================================");
-        System.out.println("🚍 PolyXML: Google GTFS-RT ↔ European CEN SIRI Transit Bridge (Java 21+)");
+        System.out.println("🚍 PolyXML: Google GTFS-RT ↔ European CEN SIRI Transit Bridge (Java 22+)");
         System.out.println("================================================================================");
 
         Path dataPath = findDataFile();
@@ -187,7 +187,7 @@ public class Main {
         Instant validUntil = Instant.parse("2026-09-20T14:05:00Z");
         Instant arrival = Instant.parse("2026-09-20T14:02:30Z");
 
-        // Construct Java 21 Record hierarchy
+        // Construct Java 22 Record hierarchy
         LocationStructure location = new LocationStructure(longitude, latitude, Optional.of(2.5));
         FramedVehicleJourneyRefStructure framedRef = new FramedVehicleJourneyRefStructure("2026-09-20", tripId != null ? tripId : "TRIP_1042");
 
@@ -254,15 +254,15 @@ public class Main {
         System.out.printf("[2] Generated Native JSON on Same Model (latency: %.2fµs):%n", jsonUs);
         System.out.println(json.substring(0, Math.min(json.length(), 400)) + "\n...\n");
 
-        // 3. Java 21 Record Pattern Matching & Inspection
-        System.out.println("[3] Java 21 Record Pattern Matching & Inspection:");
+        // 3. Java 22 Record Pattern Matching & Inspection
+        System.out.println("[3] Java 22 Record Pattern Matching & Inspection:");
         System.out.printf("    LineRef: %s%n", mvj.lineRef());
         System.out.printf("    VehicleRef: %s%n", mvj.vehicleRef());
         System.out.printf("    Coordinates: (%.4f, %.4f)%n", mvj.vehicleLocation().latitude(), mvj.vehicleLocation().longitude());
         mvj.occupancy().ifPresent(o -> System.out.printf("    Occupancy: %s%n", o.getValue()));
         System.out.println("    Record immutability & equals/hashCode validation: PASS");
 
-        System.out.println("\n✅ Java 21+ GTFS-RT ↔ CEN SIRI Transit Bridge executed successfully!");
+        System.out.println("\n✅ Java 22+ GTFS-RT ↔ CEN SIRI Transit Bridge executed successfully!");
     }
 }
 
