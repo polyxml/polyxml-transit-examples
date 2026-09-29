@@ -130,6 +130,17 @@ struct MonitoredCallStructure {
     }
 };
 
+struct VehicleMonitoringDeliveryStructure {
+    std::string response_timestamp = {};
+    std::vector<VehicleActivityStructure> vehicle_activity = {};
+
+    bool operator==(const VehicleMonitoringDeliveryStructure&) const = default;
+
+    [[nodiscard]] bool validate() const noexcept {
+        return true;
+    }
+};
+
 struct MonitoredVehicleJourneyStructure {
     std::string line_ref = {};
     std::string direction_ref = {};
@@ -154,6 +165,18 @@ struct MonitoredVehicleJourneyStructure {
     }
 };
 
+struct ServiceDeliveryStructure {
+    std::string response_timestamp = {};
+    std::string producer_ref = {};
+    VehicleMonitoringDeliveryStructure vehicle_monitoring_delivery = {};
+
+    bool operator==(const ServiceDeliveryStructure&) const = default;
+
+    [[nodiscard]] bool validate() const noexcept {
+        return true;
+    }
+};
+
 struct VehicleActivityStructure {
     std::string recorded_at_time = {};
     std::optional<std::string> valid_until_time = std::nullopt;
@@ -161,29 +184,6 @@ struct VehicleActivityStructure {
     MonitoredVehicleJourneyStructure monitored_vehicle_journey = {};
 
     bool operator==(const VehicleActivityStructure&) const = default;
-
-    [[nodiscard]] bool validate() const noexcept {
-        return true;
-    }
-};
-
-struct VehicleMonitoringDeliveryStructure {
-    std::string response_timestamp = {};
-    std::vector<VehicleActivityStructure> vehicle_activity = {};
-
-    bool operator==(const VehicleMonitoringDeliveryStructure&) const = default;
-
-    [[nodiscard]] bool validate() const noexcept {
-        return true;
-    }
-};
-
-struct ServiceDeliveryStructure {
-    std::string response_timestamp = {};
-    std::string producer_ref = {};
-    VehicleMonitoringDeliveryStructure vehicle_monitoring_delivery = {};
-
-    bool operator==(const ServiceDeliveryStructure&) const = default;
 
     [[nodiscard]] bool validate() const noexcept {
         return true;

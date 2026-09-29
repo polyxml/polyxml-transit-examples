@@ -1294,7 +1294,7 @@ impl<'a> SiriType<'a> {
             match attr.key.local_name().as_ref() {
                 "version" => {
                     let s = attr.value.as_ref();
-                    let val = match quick_xml::escape::unescape(s)? {
+                    let val: Cow<'_, str> = match quick_xml::escape::unescape(s)? {
                         Cow::Borrowed(s) => Cow::Owned(s.to_string()),
                         Cow::Owned(s) => Cow::Owned(s),
                     };
@@ -1345,7 +1345,7 @@ impl<'a> SiriType<'a> {
             match attr.key.local_name().as_ref() {
                 "version" => {
                     let s = attr.value.as_ref();
-                    let val = match quick_xml::escape::unescape(s)? {
+                    let val: Cow<'_, str> = match quick_xml::escape::unescape(s)? {
                         Cow::Borrowed(s) => Cow::Owned(s.to_string()),
                         Cow::Owned(s) => Cow::Owned(s),
                     };
