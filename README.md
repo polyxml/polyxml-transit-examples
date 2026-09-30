@@ -9,7 +9,7 @@
 
 <p align="center">
   <a href="https://github.com/polyxml/polyxml-transit-examples/actions/workflows/ci.yml"><img src="https://github.com/polyxml/polyxml-transit-examples/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <a href="https://github.com/polyxml/PolyXML"><img src="https://img.shields.io/badge/PolyXML-v0.32.0-blue.svg" alt="PolyXML Compiler"></a>
+  <a href="https://github.com/polyxml/PolyXML"><img src="https://img.shields.io/badge/PolyXML-v0.33.0-blue.svg" alt="PolyXML Compiler"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License: MIT"></a>
   <a href="#cross-language-matrix"><img src="https://img.shields.io/badge/Languages-Rust%20%7C%20Python%20%7C%20Go%20%7C%20C%2B%2B%20%7C%20Java%20%7C%20TypeScript%2FWasm%20%7C%20C%23-orange.svg" alt="Languages"></a>
 </p>
